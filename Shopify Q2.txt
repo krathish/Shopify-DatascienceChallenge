@@ -1,0 +1,52 @@
+1.
+
+For Count:
+SELECT COUNT(*)
+FROM Orders
+WHERE ShipperID = 1;
+
+Answer: 54
+
+For listing the orders:
+SELECT *
+FROM Orders
+INNER JOIN Shippers
+ON Orders.ShipperID = Shippers.ShipperID
+WHERE ShipperName = "Speedy Express";
+
+
+2.
+
+SELECT Employees.LastName, COUNT(*) AS TotalOrders
+FROM Orders
+LEFT JOIN Employees
+ON Employees.EmployeeID = Orders.EmployeeID
+GROUP BY Employees.LastName
+ORDER BY TotalOrders DESC
+LIMIT 1
+
+Answer:
+
+LastName		TotalOrders
+Peacock		40
+
+
+3.
+
+SELECT Products.ProductName, SUM(OrderDetails.Quantity) AS TotalQuantity
+FROM Products
+LEFT JOIN OrderDetails
+ON Products.ProductID = OrderDetails.ProductID
+LEFT JOIN Orders
+ON OrderDetails.OrderID = Orders.OrderID
+LEFT JOIN Customers
+ON Orders.CustomerID = Customers.CustomerID
+WHERE Customers.Country = "Germany"
+GROUP BY Products.ProductName
+ORDER BY TotalQuantity DESC
+LIMIT 1
+
+Answer:
+
+ProductName			TotalQuantity
+Boston Crab Meat		160
